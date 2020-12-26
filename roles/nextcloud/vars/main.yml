@@ -1,0 +1,4 @@
+---
+usuario: admin
+password: admin
+archivo_config: /var/snap/nextcloud/25276/nextcloud/config/config.php

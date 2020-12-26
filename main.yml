@@ -1,0 +1,8 @@
+---
+- hosts: lubuntu
+  become: true
+
+  roles:	 
+    - firewall
+    - nextcloud
+
