@@ -1,0 +1,28 @@
+<VirtualHost *:80>
+    ServerName nextcloud.cultura.lab
+    ServerAdmin usuario@mail.com
+    DocumentRoot "/var/www/html/nextcloud"
+
+    AddDefaultCharset UTF-8
+
+    <Directory "/var/www/html/nextcloud">
+       Require all granted
+       Options +MultiViews -FollowSymLinks -Indexes -ExecCGI +SymLinksIfOwnerMatch
+       AllowOverride All
+       Order allow,deny
+       Allow from all
+       
+       <IfModule mod_dav.c>
+          Dav off
+       </IfModule>
+    
+    SetEnv HOME /var/www/html/nextcloud
+    SetEnv HTTP_HOME /var/www/html/nextcloud
+    Satisfy Any
+
+    </Directory>
+
+    ErrorLog ${APACHE_LOG_DIR}/nextcloud.log
+    CustomLog ${APACHE_LOG_DIR}/nextcloud_access.log combined
+
+</VirtualHost>

@@ -1,0 +1,14 @@
+---
+#### mariadb #######
+mysql_root_password: password123!
+usuario: nextcloud_user
+password: nextcloud_pass
+db: nextcloud_db
+#### nextcloud ######
+http_port: "80"
+http_host: nextcloud.cultura.lab
+http_conf: nextcloud.conf
+usuario_apache: www-data
+grupo_apache: www-data
+php: "7.4"
+next_version: latest

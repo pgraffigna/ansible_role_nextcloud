@@ -1,18 +1,25 @@
 ---
-- name: Instalación de snapd
+- include_vars: ../../vars_main.yml
+
+- name: "Instalar PHP {{ php }} + dependencias"
   apt:
-    name: snapd
+    name: [ 'libapache2-mod-php', 'php', 'php-gd', 'php-mysql', 'php-curl', 'php-json', 'php-gmp', 'php-bcmath', 'php-xml', 'php-mbstring', 'php-intl', 'php-imagick', 'php-zip', 'bzip2', 'php-ldap' ]
+    update_cache: true
 
-- name: Instalar nextcloud 
-  snap:
-    name: nextcloud
-       
-- name: Configurar nextcloud
-  shell: nextcloud.manual-install "{{ usuario }}" "{{ password }}"
+- name: Configurando php
+  lineinfile:
+    dest: "/etc/php/{{ php }}/apache2/php.ini"
+    regexp: "{{ item.origen }}"
+    line: "{{ item.destino }}"
+  loop:
+    - { origen: '^memory_limit', destino: 'memory_limit = 512M' }
+    - { origen: '^;date.timezone', destino: 'date.timezone = America/Argentina/Buenos_Aires' }
 
-- name: Agregar linea a archivo de configuracion
-  blockinfile:
-    dest: "{{ archivo_config }}"
-    insertafter: "0 => 'localhost',"
-    block: |2
-          1 => 'ip o dominio del servidor'
+- name: "Descarga y descomprime nextcloud {{ next_version }}"
+  unarchive:
+    src: "https://download.nextcloud.com/server/releases/{{ next_version }}.zip"
+    dest: /var/www/html/
+    owner: "{{ usuario_apache }}"
+    group: "{{ grupo_apache }}"
+    mode: 0775
+    remote_src: true

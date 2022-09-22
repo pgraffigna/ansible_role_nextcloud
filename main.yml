@@ -1,8 +1,8 @@
 ---
-- hosts: lubuntu
-  become: true
+- hosts: nextcloud
+  become: yes
 
-  roles:	 
-    - firewall
+  roles:
+    - { role: mariadb, tags: [ 'db' ] }
     - nextcloud
-
+    - apache2
