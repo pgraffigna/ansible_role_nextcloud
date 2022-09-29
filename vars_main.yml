@@ -1,8 +1,8 @@
 ---
 #### mariadb #######
-mysql_root_password: password123!
-usuario: nextcloud_user
-password: nextcloud_pass
+mysql_root_password: eteZZisn
+db_usuario: nextcloud_user
+db_password: nextcloud_pass
 db: nextcloud_db
 #### nextcloud ######
 http_port: "80"
@@ -12,3 +12,5 @@ usuario_apache: www-data
 grupo_apache: www-data
 php: "7.4"
 next_version: latest
+#### redis #####
+redis_conf: config.php

@@ -19,12 +19,3 @@
   shell: a2enmod rewrite headers dir mime env setenvif ssl
   notify: servicios_apache
 
-# - name: Recargar Apache
-#   service:
-#     name: apache2
-#     state: reloaded
-
-# - name: Reiniciar Apache
-#   service:
-#     name: apache2
-#     state: restarted

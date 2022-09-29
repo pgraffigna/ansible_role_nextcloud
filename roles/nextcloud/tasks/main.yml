@@ -3,7 +3,7 @@
 
 - name: "Instalar PHP {{ php }} + dependencias"
   apt:
-    name: [ 'libapache2-mod-php', 'php', 'php-gd', 'php-mysql', 'php-curl', 'php-json', 'php-gmp', 'php-bcmath', 'php-xml', 'php-mbstring', 'php-intl', 'php-imagick', 'php-zip', 'bzip2', 'php-ldap' ]
+    name: [ 'smbclient', 'libapache2-mod-php', 'php', 'php-gd', 'php-mysql', 'php-curl', 'php-json', 'php-gmp', 'php-bcmath', 'php-xml', 'php-mbstring', 'php-intl', 'php-imagick', 'php-zip', 'bzip2', 'php-ldap' ]
     update_cache: true
 
 - name: Configurando php
@@ -14,6 +14,11 @@
   loop:
     - { origen: '^memory_limit', destino: 'memory_limit = 512M' }
     - { origen: '^;date.timezone', destino: 'date.timezone = America/Argentina/Buenos_Aires' }
+    - { origen: '^upload_max_filesize', destino: 'upload_max_filesize = 2048M' }
+    - { origen: '^post_max_size', destino: 'post_max_size = 2048M' }
+    - { origen: '^max_execution_time', destino: 'max_execution_time = 600' }
+    - { origen: '^output_buffering', destino: 'output_buffering = Off' }
+
 
 - name: "Descarga y descomprime nextcloud {{ next_version }}"
   unarchive:
@@ -21,5 +26,13 @@
     dest: /var/www/html/
     owner: "{{ usuario_apache }}"
     group: "{{ grupo_apache }}"
-    mode: 0775
+    mode: 0755
     remote_src: true
+
+- name: Creando directorio para datos
+  file:
+    path: /mnt/next-data
+    state: directory
+    owner: "{{ usuario_apache }}"
+    group: "{{ grupo_apache }}"
+    mode: 0755

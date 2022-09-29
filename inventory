@@ -1,5 +1,5 @@
 [nextcloud]
-192.168.121.160 
+192.168.121.52 
 
 [nextcloud:vars]
 ansible_ssh_user=vagrant

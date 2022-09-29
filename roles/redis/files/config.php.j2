@@ -1,0 +1,32 @@
+<?php
+$CONFIG = array (
+  'instanceid' => 'occ7pbmnkrhp',
+  'passwordsalt' => '1ZxgMp2cG90pmlf45VaYMA3PiIjCXc',
+  'secret' => 'e1U2FDXlhVGmLAPdiLwOw3tcE1tHSbskOetqN0iiDmNUlhEE',
+  'trusted_domains' =>
+  array (
+    0 => '192.168.121.155',
+  ),
+  'datadirectory' => '/mnt/next-data',
+  'dbtype' => 'mysql',
+  'version' => '24.0.5.1',
+  'overwrite.cli.url' => 'http://192.168.121.155/nextcloud',
+  'dbname' => '{{ db }}',
+  'dbhost' => 'localhost',
+  'dbport' => '',
+  'dbtableprefix' => 'oc_',
+  'mysql.utf8mb4' => true,
+  'dbuser' => '{{ db_usuario }}'
+  'dbpassword' => '{{ db_password }}',
+  'installed' => true,
+  'memcache.local' => '\OC\Memcache\Redis',
+  'memcache.locking' => '\OC\Memcache\Redis',
+  'memcache.distributed' => '\OC\Memcache\Redis',
+  'filelocking.enabled' => 'true',
+  'redis' =>
+  array (
+      'host' => '127.0.0.1',
+      'port' => '6379',
+  ),
+);
+

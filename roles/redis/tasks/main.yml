@@ -1,0 +1,31 @@
+---
+- include_vars: ../../vars_main.yml
+
+- name: "Instalar Servicio Redis"
+  apt:
+    name: [ 'redis-server', 'php-redis' ]
+    update_cache: true
+    cache_valid_time: 3600
+
+- name: Agregar al usuario apache en el grupo redis
+  user:
+    name: www-data
+    groups: redis
+    append: true
+
+- name: Configurando redis
+  blockinfile:
+    dest: "/var/www/html/nextcloud/config/config.php"
+    insertafter: "'installed' => true,"
+    block: |
+        'memcache.local' => '\OC\Memcache\Redis',
+        'memcache.locking' => '\OC\Memcache\Redis',
+        'memcache.distributed' => '\OC\Memcache\Redis',
+        'filelocking.enabled' => 'true',
+        'redis' =>
+            array (
+                'host' => '127.0.0.1',
+                'port' => '6379',
+            ),
+  notify: servicios_redis
+

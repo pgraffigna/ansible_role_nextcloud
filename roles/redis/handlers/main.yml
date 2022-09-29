@@ -1,0 +1,12 @@
+---
+- name: Reiniciar redis
+  service:
+    name: redis-server
+    state: restarted
+  listen: servicios_redis
+
+- name: Reiniciar Apache
+  service:
+    name: apache2
+    state: restarted
+  listen: servicios_redis

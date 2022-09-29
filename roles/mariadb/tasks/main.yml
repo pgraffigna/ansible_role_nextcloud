@@ -37,8 +37,8 @@
 
 - name: "Crea el usuario {{ usuario }}"
   mysql_user:
-    name: "{{ usuario }}"
-    password: "{{ password }}"
+    name: "{{ db_usuario }}"
+    password: "{{ db_password }}"
     host: localhost
     state: present
     update_password: on_create
