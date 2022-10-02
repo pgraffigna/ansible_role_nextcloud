@@ -10,33 +10,33 @@
 
 - name: Apache virtualhost
   template:
-    src: "files/{{ sitio }}.j2"
-    dest: "/etc/apache2/sites-available/{{ sitio }}"
+    src: "files/{{ sitio_conf }}.j2"
+    dest: "/etc/apache2/sites-available/{{ sitio_conf }}"
 
 - name: Generando llave openSSL
   openssl_privatekey:
-    path: "/etc/ssl/private/{{ sitio }}.key"
+    path: "/etc/ssl/private/{{ server_hostname }}.key"
     size: "{{ key_size }}"
     type: "{{ key_type }}"
 
 - name: Generando CSR
   openssl_csr:
-    path: "/etc/ssl/private/{{ sitio }}.csr"
-    privatekey_path: "/etc/ssl/private/{{ sitio }}.key"
+    path: "/etc/ssl/private/{{ server_hostname }}.csr"
+    privatekey_path: "/etc/ssl/private/{{ server_hostname }}.key"
     country_name: "{{ country_name }}"
     organization_name: "{{ organization_name }}"
     email_address: "{{ email_admins }}"
-    common_name: "{{ sitio }}"
+    common_name: "{{ server_hostname }}"
 
 - name: Generando certificado autofirmando con openSSL
   openssl_certificate:
-    path: "/etc/ssl/certs/{{ sitio }}.crt"
-    privatekey_path: "/etc/ssl/private/{{ sitio }}.key"
-    csr_path: "/etc/ssl/private/{{ sitio }}.csr"
+    path: "/etc/ssl/certs/{{ server_hostname }}.crt"
+    privatekey_path: "/etc/ssl/private/{{ server_hostname }}.key"
+    csr_path: "/etc/ssl/private/{{ server_hostname }}.csr"
     provider: selfsigned
 
 - name: Activar sitio
-  command: /usr/sbin/a2ensite {{ sitio }}
+  command: /usr/sbin/a2ensite {{ sitio_conf }}
 
 - name: Habilitando modulos
   shell: a2enmod rewrite headers dir mime env setenvif ssl

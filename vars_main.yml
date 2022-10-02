@@ -6,7 +6,7 @@ db_password: nextcloud_pass
 db: nextcloud_db
 
 #### nextcloud ######
-sitio: nextcloud.conf
+sitio_conf: nextcloud.conf
 usuario_apache: www-data
 grupo_apache: www-data
 php: "7.4"
