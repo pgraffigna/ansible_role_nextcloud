@@ -1,16 +1,25 @@
 ---
 #### mariadb #######
-mysql_root_password: eteZZisn
+mysql_root_password: password123!
 db_usuario: nextcloud_user
 db_password: nextcloud_pass
 db: nextcloud_db
+
 #### nextcloud ######
-http_port: "80"
-http_host: nextcloud.cultura.lab
-http_conf: nextcloud.conf
+sitio: nextcloud.conf
 usuario_apache: www-data
 grupo_apache: www-data
 php: "7.4"
 next_version: latest
+
 #### redis #####
 redis_conf: config.php
+
+#### apache ####
+https: 443
+server_hostname: nextcloud.cultura.lab
+key_size: 2048
+key_type: RSA
+country_name: AR
+email_admins: administradores@correo
+organization_name: cnb

@@ -1,9 +1,9 @@
 ---
 - hosts: nextcloud
-  become: yes
+  become: true
 
   roles:
-    #- { role: mariadb, tags: [ 'db' ] }
-    #- nextcloud
-    #- apache2
+    - { role: mariadb, tags: [ 'mariadb' ] }
+    - nextcloud
+    - apache2
     - { role: redis, tags: [ 'redis' ] }

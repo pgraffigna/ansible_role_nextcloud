@@ -3,19 +3,41 @@
 
 - name: Instalar Apache
   apt:
-    name: apache2
+    name: "{{ item }}"
     update_cache: true
     cache_valid_time: 3600
+  with_items: "{{ apache_packages }}"
 
 - name: Apache virtualhost
   template:
-    src: "files/{{ http_conf }}.j2"
-    dest: "/etc/apache2/sites-available/{{ http_conf }}"
+    src: "files/{{ sitio }}.j2"
+    dest: "/etc/apache2/sites-available/{{ sitio }}"
+
+- name: Generando llave openSSL
+  openssl_privatekey:
+    path: "/etc/ssl/private/{{ sitio }}.key"
+    size: "{{ key_size }}"
+    type: "{{ key_type }}"
+
+- name: Generando CSR
+  openssl_csr:
+    path: "/etc/ssl/private/{{ sitio }}.csr"
+    privatekey_path: "/etc/ssl/private/{{ sitio }}.key"
+    country_name: "{{ country_name }}"
+    organization_name: "{{ organization_name }}"
+    email_address: "{{ email_admins }}"
+    common_name: "{{ sitio }}"
+
+- name: Generando certificado autofirmando con openSSL
+  openssl_certificate:
+    path: "/etc/ssl/certs/{{ sitio }}.crt"
+    privatekey_path: "/etc/ssl/private/{{ sitio }}.key"
+    csr_path: "/etc/ssl/private/{{ sitio }}.csr"
+    provider: selfsigned
 
 - name: Activar sitio
-  shell: /usr/sbin/a2ensite {{ http_conf }}
+  command: /usr/sbin/a2ensite {{ sitio }}
 
-- name: Habilitando modulos PHP
+- name: Habilitando modulos
   shell: a2enmod rewrite headers dir mime env setenvif ssl
   notify: servicios_apache
-

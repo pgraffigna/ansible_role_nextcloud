@@ -1,21 +1,22 @@
 ---
 - include_vars: ../../vars_main.yml
 
-- name: "Instalar Servicio Redis"
+- name: "Instalar Redis + dependencias php"
   apt:
-    name: [ 'redis-server', 'php-redis' ]
+    name: "{{ item }}"
     update_cache: true
     cache_valid_time: 3600
+  with_items: "{{ redis_packages }}"
 
 - name: Agregar al usuario apache en el grupo redis
   user:
-    name: www-data
+    name: "{{ usuario_apache }}"
     groups: redis
     append: true
 
 - name: Configurando redis
   blockinfile:
-    dest: "/var/www/html/nextcloud/config/config.php"
+    dest: "/var/www/html/nextcloud/config/{{ redis_conf }}"
     insertafter: "'installed' => true,"
     block: |
         'memcache.local' => '\OC\Memcache\Redis',

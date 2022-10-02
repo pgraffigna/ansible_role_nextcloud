@@ -3,9 +3,10 @@
 
 - name: Instalacion mariaDB
   apt:
-    name: [ 'mariadb-server', 'python3-pymysql' ]
+    name: "{{ item }}"
     update_cache: true
     cache_valid_time: 3600
+  with_items: "{{ mariadb_packages }}"
 
 - name: Creando mariaDB root password
   mysql_user:
@@ -35,7 +36,7 @@
     login_user: root
     login_password: "{{ mysql_root_password }}"
 
-- name: "Crea el usuario {{ usuario }}"
+- name: "Crea el usuario {{ db_usuario }}"
   mysql_user:
     name: "{{ db_usuario }}"
     password: "{{ db_password }}"
