@@ -1,6 +1,10 @@
 ---
 - include_vars: ../../vars_main.yml
 
+- name: "Agregar PPA para PHP {{ php }}"
+  ansible.builtin.apt_repository:
+    repo: ppa:ondrej/php
+
 - name: "Instalar PHP {{ php }} + dependencias"
   apt:
     name: "{{ item }}"
@@ -10,7 +14,7 @@
 
 - name: Configurando php
   lineinfile:
-    dest: "/etc/php/{{ php }}/apache2/php.ini"
+    dest: "/etc/php/8.2/apache2/php.ini"
     regexp: "{{ item.origen }}"
     line: "{{ item.destino }}"
   loop:

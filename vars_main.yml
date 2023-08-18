@@ -9,7 +9,7 @@ db: nextcloud_db
 sitio_conf: nextcloud.conf
 usuario_apache: www-data
 grupo_apache: www-data
-php: "7.4"
+php: "8.0"
 next_version: latest
 
 #### redis #####
@@ -17,7 +17,7 @@ redis_conf: config.php
 
 #### apache ####
 https: 443
-server_hostname: nextcloud.cultura.lab
+server_hostname: nextcloud.home.local
 key_size: 2048
 key_type: RSA
 country_name: AR
