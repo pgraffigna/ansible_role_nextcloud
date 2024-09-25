@@ -1,2 +1,2 @@
 ---
-nextcloud_packages: [ 'smbclient', 'libapache2-mod-php', 'php', 'php-gd', 'php-mysql', 'php-curl', 'php-json', 'php-gmp', 'php-bcmath', 'php-xml', 'php-mbstring', 'php-intl', 'php-imagick', 'php-zip', 'bzip2', 'php-ldap' ]
+nextcloud_packages: [ 'smbclient', 'libapache2-mod-php', 'php8.2', 'php8.2-gd', 'php8.2-mysql', 'php8.2-curl', 'php-json', 'php8.2-gmp', 'php8.2-bcmath', 'php8.2-xml', 'php8.2-mbstring', 'php8.2-intl', 'php-imagick', 'php8.2-zip', 'bzip2', 'php8.2-ldap' ]

@@ -1,5 +1,5 @@
 ENV['VAGRANT_DEFAULT_PROVIDER'] = 'libvirt'
-IMAGEN = "generic/ubuntu2004"
+IMAGEN = "generic/ubuntu2204"
 HOSTNAME = "nextcloud.home.local"
 
 Vagrant.configure("2") do |config|
@@ -11,9 +11,10 @@ Vagrant.configure("2") do |config|
     s.vm.hostname = HOSTNAME
 
     s.vm.provider :libvirt do |v|
+      v.disk_bus = 'virtio'
       v.memory = 2048
       v.cpus = 2
-      v.graphics_type = "none"
+      v.graphics_type = 'none'
     end
   end
 end

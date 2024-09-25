@@ -1,5 +1,5 @@
 ---
-- include_vars: ../../vars_main.yml
+- include_vars: vars_main.yml
 
 - name: Instalacion mariaDB
   apt:
